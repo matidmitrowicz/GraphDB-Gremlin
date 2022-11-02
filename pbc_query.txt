@@ -1,0 +1,18 @@
+1. Listar todas las personas
+g.V().hasLabel('persona').values('nombre')
+
+2. Todos los bares que sirven Quilmes.
+g.V().has('cerveza', 'marca', 'Quilmes').in('sirve').values('nombre')
+
+3. Las cervezas que le gustan a José.
+g.V().has('persona', 'nombre', 'Jose').out('gusta').values('marca')
+
+4. Los bares que sirven la cerveza que le gusta a Jorge.
+g.V().has('persona', 'nombre', 'Jorge').out('gusta').in('sirve').values('nombre')
+
+5. Las personas que frecuentan bares que sirven alguna cerveza que les gusta.
+g.V().hasLabel('persona').out('frecuenta').out('sirve').in('gusta').cyclicPath().values('nombre')
+
+6. Las personas que frecuentan los bares que sirven la cerveza que le gusta a Javier.
+g.V().has('persona','nombre','Javier').out('gusta').in('sirve').in('frecuenta').not(cyclicPath()).values('nombre')
+  
